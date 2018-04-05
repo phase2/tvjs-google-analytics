@@ -8,7 +8,7 @@ class GoogleAnalytics {
   /**
    * Initialize the Google Anlytics tracker
    * 
-   * @param {string} trackingID    The tracking ID, of the form UA-XXXXXX
+   * @param {string} trackingID    The tracking ID, of the form UA-XXXXXXXXX-X
    * @param {string} appName       Application Name (user defined)
    */
   constructor(trackingID, appName) {
@@ -48,19 +48,19 @@ class GoogleAnalytics {
   }
 
   get debug() {
-    return this.debug;
+    return this._debug;
   }
 
   set debug(flag) {
-    this.debug = flag;
+    this._debug = flag;
   }
 
   get useValidator() {
-    return this.useValidator;
+    return this._useValidator;
   }
 
   set useValidator(flag) {
-    this.useValidator = flag;
+    this._useValidator = flag;
   }
 
   /**
@@ -119,7 +119,7 @@ class GoogleAnalytics {
       return param[0] + "=" + encodeURIComponent(param[1])
     }).join("&");
 
-    post(payload)
+    this.post(payload)
   }
 
   /**
@@ -131,15 +131,15 @@ class GoogleAnalytics {
     let request = new XMLHttpRequest()
     
     // Post is fire and forget, but log the response for developer info/discovery
-    request.onreadystatechange = function() {
-      if (request.readyState == 4) {
+    request.onreadystatechange = () => {
+      if (request.readyState === 4) {
         if (request.status >= 200 && request.status < 300) {
-          this.log("ANALYTICS RESPONSE", request, JSON.parse(request.responseText));
+          this.log("ANALYTICS RESPONSE", request);
         } else {
           console.warn(`Google Analytics error response: ${request.status}`, request);
         }
       }
-    }
+    };
 
     let url = this.useValidator 
         ? "https://www.google-analytics.com/debug/collect" 
