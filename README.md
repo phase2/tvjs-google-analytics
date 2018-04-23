@@ -32,3 +32,6 @@ function mySelectHandler(event) {
 
 # Contributions
 Contributions to support testing and additional event types are welcome.
+
+# Credits
+Heavily inspired by Doug Richardson's prior art. https://github.com/drichardson/tvjs_google_analytics
