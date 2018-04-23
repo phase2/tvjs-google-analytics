@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/phase2/tvjs-google-analytics.git"
   },
-  "keywords": [],
+  "keywords": ["appletv", "google analytics", "tvos", "tvml", "tvmlkit", "tvmlkit javascript"],
   "author": "Frank Febbraro",
   "license": "MIT",
   "bugs": {
