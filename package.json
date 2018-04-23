@@ -1,0 +1,20 @@
+{
+  "name": "tvjs-google-analytics",
+  "version": "0.1.0",
+  "description": "This library provides Google Analytics support for Apple's tvOS TVMLKit JavaScript runtime. It uses the Google Analytics Measurement Protocol to provide a mobile SDK like API to track analytics events and screenviews within a tvOS Client/Server application.",
+  "main": "google-analytics.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phase2/tvjs-google-analytics.git"
+  },
+  "keywords": [],
+  "author": "Frank Febbraro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/phase2/tvjs-google-analytics/issues"
+  },
+  "homepage": "https://github.com/phase2/tvjs-google-analytics#readme"
+}
