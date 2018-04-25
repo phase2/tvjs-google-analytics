@@ -3,7 +3,7 @@
 /**
  * Google Analytics Measurement Protocol support for Apple's TVMLKit JS
  */
-class GoogleAnalytics {
+export default class GoogleAnalytics {
 
   /**
    * Initialize the Google Anlytics tracker
