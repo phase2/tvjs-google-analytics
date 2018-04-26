@@ -1,20 +1,34 @@
 {
   "name": "tvjs-google-analytics",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "This library provides Google Analytics support for Apple's tvOS TVMLKit JavaScript runtime. It uses the Google Analytics Measurement Protocol to provide a mobile SDK like API to track analytics events and screenviews within a tvOS Client/Server application.",
   "main": "google-analytics.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "prepublish": "npm run lint"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/phase2/tvjs-google-analytics.git"
   },
-  "keywords": ["appletv", "google analytics", "tvos", "tvml", "tvmlkit", "tvmlkit javascript"],
-  "author": "Frank Febbraro",
+  "keywords": [
+    "appletv",
+    "google analytics",
+    "tvos",
+    "tvml",
+    "tvmlkit",
+    "tvmlkit javascript"
+  ],
+  "author": "Frank Febbraro <frankfebbraro@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/phase2/tvjs-google-analytics/issues"
   },
-  "homepage": "https://github.com/phase2/tvjs-google-analytics#readme"
+  "homepage": "https://github.com/phase2/tvjs-google-analytics#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.11.0"
+  }
 }
