@@ -1,5 +1,8 @@
 module.exports = {
-  extends: "airbnb-base",
+  extends: [
+    "airbnb-base",
+    "plugin:jest/recommended",
+  ],
   globals: {
     Settings: true,
     Device: true,

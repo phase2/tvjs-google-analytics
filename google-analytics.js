@@ -5,10 +5,11 @@ export default class GoogleAnalytics {
   /**
    * Initialize the Google Anlytics tracker
    *
-   * @param {string} trackingID    The tracking ID, of the form UA-XXXXXXXXX-X
-   * @param {string} appName       Application Name (user defined)
+   * @param {string} trackingID         The tracking ID, of the form UA-XXXXXXXXX-X
+   * @param {string} appName            Application Name (user defined)
+   * @param {object} additionalParams   User parameters to add/override the defaults
    */
-  constructor(trackingID, appName) {
+  constructor(trackingID, appName, additionalParams = {}) {
     this.trackingID = trackingID;
     this.appName = appName;
     this.clientID = localStorage.getItem(GoogleAnalytics.CLIENT_ID_KEY);
@@ -21,23 +22,25 @@ export default class GoogleAnalytics {
       localStorage.setItem(GoogleAnalytics.CLIENT_ID_KEY, this.clientID);
     }
 
-    this.commonParameters = [
+    const defaultParams = {
       // General: https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#general
-      ['v', 1], // protocol version. must be 1
-      ['tid', this.trackingID],
-      ['ds', 'app'], // data source. mobile app SDKs use "app"
+      v: 1, // protocol version. must be 1
+      tid: this.trackingID,
+      ds: 'app', // data source. mobile app SDKs use "app"
 
       // User: https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#user
-      ['cid', this.clientID],
+      cid: this.clientID,
 
       // System Info: https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#system
-      ['ul', Settings.language],
+      ul: Settings.language,
 
       // App Tracking: https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#apptracking
-      ['an', this.appName],
-      ['aid', Device.appIdentifier],
-      ['av', Device.appVersion],
-    ];
+      an: this.appName,
+      aid: Device.appIdentifier,
+      av: Device.appVersion,
+    };
+
+    this.commonParameters = { ...defaultParams, ...additionalParams };
   }
 
   static get CLIENT_ID_KEY() {
@@ -66,10 +69,10 @@ export default class GoogleAnalytics {
    * @param {string} screenName required
    */
   screenview(screenName) {
-    const params = [
-      ['t', 'screenview'],
-      ['cd', screenName],
-    ];
+    const params = {
+      t: 'screenview',
+      cd: screenName,
+    };
 
     this.postParams(params);
   }
@@ -83,18 +86,18 @@ export default class GoogleAnalytics {
    * @param {integer} value The event value. Optional.
    */
   event(category, action, label, value) {
-    const params = [
-      ['t', 'event'],
-      ['ec', category],
-      ['ea', action],
-    ];
+    const params = {
+      t: 'event',
+      ec: category,
+      ea: action,
+    };
 
     if (label) {
-      params.push(['el', label]);
+      params.el = label;
     }
 
     if (value) {
-      params.push(['ev', value]);
+      params.ev = value;
     }
 
     this.postParams(params);
@@ -103,16 +106,20 @@ export default class GoogleAnalytics {
   /**
    * Process the post parameters into a post body, starting a new session if needed.
    *
-   * @param {array} params An array of key/value arrays for GA parameters
+   * @param {object} params An object of property/value arrays for GA parameters
    */
   postParams(params) {
+    const sessionParams = {};
     if (!this.hasCreatedSession) {
       this.log('Starting new session');
       this.hasCreatedSession = true;
-      params.push(['sc', 'start']);
+      sessionParams.sc = 'start';
     }
 
-    const payload = this.commonParameters.concat(params).map(param => `${param[0]}=${encodeURIComponent(param[1])}`).join('&');
+    const requestParams = { ...this.commonParameters, ...params, ...sessionParams };
+    const payload = Object
+      .entries(requestParams)
+      .map(param => `${param[0]}=${encodeURIComponent(param[1])}`).join('&');
 
     this.post(payload);
   }
