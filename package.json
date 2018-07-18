@@ -1,6 +1,6 @@
 {
   "name": "tvjs-google-analytics",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This library provides Google Analytics support for Apple's tvOS TVMLKit JavaScript runtime. It uses the Google Analytics Measurement Protocol to provide a mobile SDK like API to track analytics events and screenviews within a tvOS Client/Server application.",
   "main": "dist/index.js",
   "scripts": {
@@ -41,5 +41,8 @@
     "regenerator-runtime": "^0.12.0",
     "rollup": "^0.63.2",
     "rollup-plugin-babel": "^3.0.7"
-  }
+  },
+  "files": [
+    "dist"
+  ]  
 }
